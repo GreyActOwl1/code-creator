@@ -6,7 +6,7 @@ interface Creator {
   name: string;
   url: string;
   description: string;
-  imageURL: string;
+  imageUrl: string;
 }
 
 const ShowCreators = () => {
@@ -41,7 +41,7 @@ const ShowCreators = () => {
       <div className="creators-list">
         {creators.map((creator) => (
           <div key={creator.id} className="creator-card">
-            <img src={creator.imageURL} alt={`${creator.name}'s profile`} />
+            <img src={creator.imageUrl} alt={`${creator.name}'s profile`} />
             <h2>{creator.name}</h2>
             <p>{creator.description}</p>
             <a href={creator.url} target="_blank" rel="noopener noreferrer">

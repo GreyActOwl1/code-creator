@@ -7,7 +7,7 @@ interface Creator {
   name: string;
   url: string;
   description: string;
-  imageURL: string;
+  imageUrl: string;
 }
 
 const ViewCreator = () => {
@@ -27,6 +27,7 @@ const ViewCreator = () => {
         .eq('id', id)
         .single(); // fetch a single record
 
+        console.log(creator?.imageUrl)
       if (error) {
         console.error('Error fetching creator:', error);
         setError('Could not fetch creator data. Please try again later.');
@@ -55,7 +56,7 @@ const ViewCreator = () => {
   return (
     <div>
       <h1>{creator.name}</h1>
-      <img src={creator.imageURL} alt={`${creator.name}'s profile`} />
+      <img src={creator.imageUrl} alt={`${creator.name}'s profile`} />
       <p>{creator.description}</p>
       <a href={creator.url} target="_blank" rel="noopener noreferrer">
         Visit Website
