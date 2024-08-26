@@ -1,5 +1,3 @@
-// src/App.tsx
-
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ShowCreators from './pages/ShowCreators';
@@ -16,7 +14,7 @@ function App() {
         <Route path="/" element={<Home/>} />
         <Route path="/creators" element={<ShowCreators />} />
         <Route path="/creators/add" element={<AddCreator />} />
-        {/* <Route path="/creators/:id" element={<ViewCreator />} /> */}
+        <Route path="/creators/:id" element={<ViewCreator />} />
         {/* <Route path="/creators/:id/edit" element={<EditCreator />} /> */}
         <Route path="*" element={<NotFound />} /> 
       </Routes>
