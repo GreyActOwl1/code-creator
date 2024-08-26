@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { supabase } from '../supaBaseclient';
 
 interface Creator {
@@ -27,7 +27,7 @@ const ViewCreator = () => {
         .eq('id', id)
         .single(); // fetch a single record
 
-        console.log(creator?.imageUrl)
+      console.log(creator?.imageUrl)
       if (error) {
         console.error('Error fetching creator:', error);
         setError('Could not fetch creator data. Please try again later.');
@@ -61,6 +61,11 @@ const ViewCreator = () => {
       <a href={creator.url} target="_blank" rel="noopener noreferrer">
         Visit Website
       </a>
+      <div>
+        <Link to="/creators">
+          <button>View All Creators</button>
+        </Link>
+      </div>
     </div>
   );
 };
