@@ -1,16 +1,28 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { supabase } from '../supaBaseclient';
 
 const AddCreator: React.FC = () => {
   const [name, setName] = useState('');
+  const [url, setUrl] = useState('');
   const [description, setDescription] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement the logic to add the creator
-    console.log('Creator added:', { name, description });
-    // Reset form fields
-    setName('');
-    setDescription('');
+    
+    const { data, error } = await supabase
+      .from('creators')
+      .insert([{ name, url, description, imageUrl }])
+      .select();
+
+    if (error) {
+      console.error('Error adding creator:', error);
+    } else {
+      console.log('Creator added:', data);
+      navigate('/creators');
+    }
   };
 
   return (
@@ -28,11 +40,31 @@ const AddCreator: React.FC = () => {
           />
         </div>
         <div>
+          <label htmlFor="url">URL:</label>
+          <input
+            type="url"
+            id="url"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            required
+          />
+        </div>
+        <div>
           <label htmlFor="description">Description:</label>
           <textarea
             id="description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="imageUrl">Image URL:</label>
+          <input
+            type="url"
+            id="imageUrl"
+            value={imageUrl}
+            onChange={(e) => setImageUrl(e.target.value)}
             required
           />
         </div>
