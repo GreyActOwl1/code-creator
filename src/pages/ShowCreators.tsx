@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../supaBaseclient';
+import ImageWithFallback from '../components/ImageWithFallback';
+
 interface Creator {
   id: string;
   name: string;
@@ -41,7 +43,12 @@ const ShowCreators = () => {
       <div className="creators-list">
         {creators.map((creator) => (
           <div key={creator.id} className="creator-card">
-            <img src={creator.imageUrl} alt={`${creator.name}'s profile`} />
+            <ImageWithFallback
+              src={creator.imageUrl}
+              alt={`${creator.name}'s profile`}
+              fallbackSrc="/path/to/fallback/image.jpg"
+              className="creator-image"
+            />
             <h2>{creator.name}</h2>
             <p>{creator.description}</p>
             <a href={creator.url} target="_blank" rel="noopener noreferrer">

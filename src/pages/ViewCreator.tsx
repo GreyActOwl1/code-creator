@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { supabase } from '../supaBaseclient';
+import ImageWithFallback from '../components/ImageWithFallback';
 
 interface Creator {
   id: string;
@@ -56,7 +57,12 @@ const ViewCreator = () => {
   return (
     <div>
       <h1>{creator.name}</h1>
-      <img src={creator.imageUrl} alt={`${creator.name}'s profile`} />
+      <ImageWithFallback
+        src={creator.imageUrl}
+        alt={`${creator.name}'s profile`}
+        fallbackSrc="/path/to/fallback/image.jpg"
+        className="creator-image-large"
+      />
       <p>{creator.description}</p>
       <a href={creator.url} target="_blank" rel="noopener noreferrer">
         Visit Website
