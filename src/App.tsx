@@ -15,7 +15,7 @@ function App() {
         <Route path="/creators" element={<ShowCreators />} />
         <Route path="/creators/add" element={<AddCreator />} />
         <Route path="/creators/:id" element={<ViewCreator />} />
-        {/* <Route path="/creators/:id/edit" element={<EditCreator />} /> */}
+        <Route path="/creators/:id/edit" element={<EditCreator />} />
         <Route path="*" element={<NotFound />} /> 
       </Routes>
     </Router>
