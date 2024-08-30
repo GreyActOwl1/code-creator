@@ -23,7 +23,7 @@ export default function HomePage() {
       const { data, error } = await supabase
         .from('creators')
         .select('*')
-        .limit(3);
+        .limit(6);
 
       if (error) {
         console.error('Error fetching featured creators:', error);
@@ -82,25 +82,24 @@ export default function HomePage() {
           <h3 className={subtitle({ class: "mb-6 text-center" })}>Featured Creators</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {featuredCreators.map((creator) => (
-              <Card key={creator.id} className="max-w-[400px]">
-                <CardBody className="overflow-visible p-0">
-                  <Image
-                    shadow="sm"
-                    radius="lg"
-                    width="100%"
-                    alt={`${creator.name}'s profile`}
-                    className="w-full object-cover h-[140px]"
-                    src={creator.imageUrl}
-                  />
-                </CardBody>
-                <CardFooter className="text-small flex-col items-start">
-                  <h4 className="font-bold text-large">{creator.name}</h4>
-                  <p className="text-default-500 line-clamp-2">{creator.description}</p>
-                  <Link href={`/creators/${creator.id}`} color="primary">
-                    View Details
-                  </Link>
-                </CardFooter>
-              </Card>
+              <Link key={creator.id} href={creator.url} isExternal>
+                <Card className="w-[400px] cursor-pointer hover:opacity-80 transition-opacity h-[240px]">
+                  <CardBody className="overflow-visible p-0">
+                    <Image
+                      shadow="sm"
+                      radius="lg"
+                      width="100%"
+                      alt={`${creator.name}'s profile`}
+                      className="w-full object-cover h-[140px]"
+                      src={creator.imageUrl}
+                    />
+                  </CardBody>
+                  <CardFooter className="text-small flex-col items-start">
+                    <h4 className="font-bold text-large">{creator.name}</h4>
+                    <p className="text-default-500 line-clamp-2">{creator.description}</p>
+                  </CardFooter>
+                </Card>
+              </Link>
             ))}
           </div>
         </div>
