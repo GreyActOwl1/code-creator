@@ -116,7 +116,7 @@ export default function EditCreator() {
               <Input
                 label="Name"
                 value={name}
-                onChange={(e) => {
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   setName(e.target.value);
                   validateName(e.target.value);
                 }}
@@ -127,7 +127,7 @@ export default function EditCreator() {
               <Input
                 label="Image URL"
                 value={imageUrl}
-                onChange={(e) => {
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   setImageUrl(e.target.value);
                   setImageUrlError(validateUrl(e.target.value));
                 }}
@@ -138,12 +138,12 @@ export default function EditCreator() {
               <Input
                 label="Description"
                 value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDescription(e.target.value)}
               />
               <Input
                 label="Website or Social Media URL"
                 value={url}
-                onChange={(e) => {
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   setUrl(e.target.value);
                   setUrlError(validateUrl(e.target.value));
                 }}

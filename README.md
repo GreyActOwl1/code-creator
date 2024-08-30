@@ -1,50 +1,59 @@
-# Vite & NextUI Template
+# WEB103 Prework - *👉🏿 Name of App Here*
 
-This is a template for creating applications using Vite and NextUI (v2).
+Submitted by: **👉🏿 your name here**
 
-[Try it on CodeSandbox](https://githubbox.com/nextui-org/vite-template)
+About this web app: **👉🏿 app description here**
 
-## Technologies Used
+Time spent: **👉🏿 X** hours
 
-- [Vite](https://vitejs.dev/guide/)
-- [NextUI](https://nextui.org)
-- [Tailwind CSS](https://tailwindcss.com)
-- [Tailwind Variants](https://tailwind-variants.org)
-- [TypeScript](https://www.typescriptlang.org)
-- [Framer Motion](https://www.framer.com/motion)
+## Required Features
 
-## How to Use
+The following **required** functionality is completed:
 
-To clone the project, run the following command:
+<!-- 👉🏿👉🏿👉🏿 Make sure to check off completed functionality below -->
+- [ ] **A logical component structure in React is used to create the frontend of the app**
+- [ ] **At least five content creators are displayed on the homepage of the app**
+- [ ] **Each content creator item includes their name, a link to their channel/page, and a short description of their content**
+- [ ] **API calls use the async/await design pattern via Axios or fetch()**
+- [ ] **Clicking on a content creator item takes the user to their details page, which includes their name, url, and description**
+- [ ] **Each content creator has their own unique URL**
+- [ ] **The user can edit a content creator to change their name, url, or description**
+- [ ] **The user can delete a content creator**
+- [ ] **The user can add a new content creator by entering a name, url, or description and then it is displayed on the homepage**
 
-```bash
-git clone https://github.com/nextui-org/vite-template.git
-```
+The following **optional** features are implemented:
 
-### Install dependencies
+- [ ] Picocss is used to style HTML elements
+- [ ] The content creator items are displayed in a creative format, like cards instead of a list
+- [ ] An image of each content creator is shown on their content creator card
 
-You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
+The following **additional** features are implemented:
 
-```bash
-npm install
-```
+* [ ] List anything else that you added to improve the site's functionality!
 
-### Run the development server
+## Video Walkthrough
 
-```bash
-npm run dev
-```
+Here's a walkthrough of implemented required features:
 
-### Setup pnpm (optional)
+👉🏿<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
+<!-- Replace this with whatever GIF tool you used! -->
+GIF created with ...  👉🏿 GIF tool here
+<!-- Recommended tools:
+[Kap](https://getkap.co/) for macOS
+[ScreenToGif](https://www.screentogif.com/) for Windows
+[peek](https://github.com/phw/peek) for Linux. -->
 
-```bash
-public-hoist-pattern[]=*@nextui-org/*
-```
+## Notes
 
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
+Describe any challenges encountered while building the app or any additional context you'd like to add.
 
 ## License
 
-Licensed under the [MIT license](https://github.com/nextui-org/vite-template/blob/main/LICENSE).
+Copyright [👉🏿 yyyy] [👉🏿 name of copyright owner]
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+
+> http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.

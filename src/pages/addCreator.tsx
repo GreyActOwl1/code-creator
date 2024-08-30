@@ -137,7 +137,7 @@ export default function AddCreator() {
               <Textarea
                 label="Description"
                 value={description}
-                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setDescription(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDescription(e.target.value)}
               />
               <Button type="submit" color="primary" isLoading={isLoading}>
                 Add Creator

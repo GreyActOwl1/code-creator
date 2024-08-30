@@ -1,5 +1,3 @@
-import React from "react";
-import { Link } from "@nextui-org/react";
 import { title, subtitle } from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";
 
