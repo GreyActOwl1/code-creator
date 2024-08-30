@@ -39,7 +39,7 @@ Here's a walkthrough of implemented required features:
 
 **Live Site:** https://code-creator-rose.vercel.app/
 
-<img src='https://i.imgur.com/5wZSkWe.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+![Video Walkthrough](https://i.imgur.com/5wZSkWe.gif)
 
 <!-- Replace this with whatever GIF tool you used! -->
 GIF created with [peek](https://github.com/phw/peek) for Linux. 
