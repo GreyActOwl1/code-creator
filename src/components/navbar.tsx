@@ -48,6 +48,7 @@ export const Navbar = () => {
               </Link>
             </NavbarItem>
           ))}
+          <ThemeSwitch /> 
         </div>
       </NavbarContent>
 
