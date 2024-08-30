@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from '../supaBaseclient';
-import { Card, CardBody, CardHeader, Image } from "@nextui-org/react";
+import { Card, CardBody, CardHeader, CardFooter, Image, Button } from "@nextui-org/react";
 import DefaultLayout from "@/layouts/default";
 
 interface Creator {
@@ -13,6 +13,7 @@ interface Creator {
 
 export default function ViewCreator() {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const [creator, setCreator] = useState<Creator | null>(null);
 
   useEffect(() => {
@@ -32,6 +33,25 @@ export default function ViewCreator() {
 
     fetchCreator();
   }, [id]);
+
+  const handleEdit = () => {
+    navigate(`/creators/${id}/edit`);
+  };
+
+  const handleDelete = async () => {
+    if (window.confirm('Are you sure you want to delete this creator?')) {
+      const { error } = await supabase
+        .from('creators')
+        .delete()
+        .eq('id', id);
+
+      if (error) {
+        console.error('Error deleting creator:', error);
+      } else {
+        navigate('/creators');
+      }
+    }
+  };
 
   if (!creator) {
     return <div>Loading...</div>;
@@ -62,7 +82,16 @@ export default function ViewCreator() {
           />
           <p className="py-4">{creator.description}</p>
         </CardBody>
+        <CardFooter className="flex justify-end gap-2">
+          <Button color="primary" onPress={handleEdit}>
+            Edit
+          </Button>
+          <Button color="danger" onPress={handleDelete}>
+            Delete
+          </Button>
+        </CardFooter>
       </Card>
     </DefaultLayout>
   );
 }
+
