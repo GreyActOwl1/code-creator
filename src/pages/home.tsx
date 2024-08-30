@@ -1,11 +1,40 @@
-import React from "react";
-import { Link, Button } from "@nextui-org/react";
+import React, { useEffect, useState } from "react";
+import { Link, Button, Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 import { title, subtitle } from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCode, faSearch, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { supabase } from '../supaBaseclient';
+
+interface Creator {
+  id: string;
+  name: string;
+  imageUrl: string;
+  description: string;
+  url: string;
+}
 
 export default function HomePage() {
+
+  const [featuredCreators, setFeaturedCreators] = useState<Creator[]>([]);
+
+  useEffect(() => {
+    const fetchFeaturedCreators = async () => {
+      const { data, error } = await supabase
+        .from('creators')
+        .select('*')
+        .limit(3);
+
+      if (error) {
+        console.error('Error fetching featured creators:', error);
+      } else {
+        setFeaturedCreators(data || []);
+      }
+    };
+
+    fetchFeaturedCreators();
+  }, []);
+
   return (
     <DefaultLayout>
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
@@ -47,6 +76,32 @@ export default function HomePage() {
             >
               Add a Creator
             </Button>
+          </div>
+        </div>
+        <div className="max-w-4xl w-full mt-12">
+          <h3 className={subtitle({ class: "mb-6 text-center" })}>Featured Creators</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {featuredCreators.map((creator) => (
+              <Card key={creator.id} className="max-w-[400px]">
+                <CardBody className="overflow-visible p-0">
+                  <Image
+                    shadow="sm"
+                    radius="lg"
+                    width="100%"
+                    alt={`${creator.name}'s profile`}
+                    className="w-full object-cover h-[140px]"
+                    src={creator.imageUrl}
+                  />
+                </CardBody>
+                <CardFooter className="text-small flex-col items-start">
+                  <h4 className="font-bold text-large">{creator.name}</h4>
+                  <p className="text-default-500 line-clamp-2">{creator.description}</p>
+                  <Link href={`/creators/${creator.id}`} color="primary">
+                    View Details
+                  </Link>
+                </CardFooter>
+              </Card>
+            ))}
           </div>
         </div>
 
