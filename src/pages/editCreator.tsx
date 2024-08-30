@@ -1,14 +1,13 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { Input, Button, Card, CardBody } from "@nextui-org/react";
-import { supabase } from "../supaBaseclient";
-import DefaultLayout from "@/layouts/default";
+import { useNavigate, useParams } from "react-router-dom";
 import { title } from "@/components/primitives";
+import DefaultLayout from "@/layouts/default";
+import { Input, Textarea, Button, Card, CardBody } from "@nextui-org/react";
+import { supabase } from "../supaBaseclient";
 
 export default function EditCreator() {
-  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-
+  const { id } = useParams();
   const [name, setName] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [description, setDescription] = useState("");
@@ -19,11 +18,9 @@ export default function EditCreator() {
   const [urlError, setUrlError] = useState("");
   const [formMessage, setFormMessage] = useState({ type: '', text: '' });
   const [isLoading, setIsLoading] = useState(false);
-  const [isFormValid, setIsFormValid] = useState(false);
 
   useEffect(() => {
     const fetchCreator = async () => {
-      if (!id) return;
       const { data, error } = await supabase
         .from("creators")
         .select("*")
@@ -32,11 +29,10 @@ export default function EditCreator() {
 
       if (error) {
         console.error("Error fetching creator:", error);
-        setFormMessage({ type: 'error', text: 'Failed to load creator data' });
-      } else if (data) {
+      } else {
         setName(data.name);
         setImageUrl(data.imageUrl);
-        setDescription(data.description || "");
+        setDescription(data.description);
         setUrl(data.url);
       }
     };
@@ -47,10 +43,9 @@ export default function EditCreator() {
   const validateName = (value: string) => {
     if (value.length < 2) {
       setNameError("Name must be at least 2 characters long");
-      return false;
+    } else {
+      setNameError("");
     }
-    setNameError("");
-    return true;
   };
 
   const validateUrl = useCallback((value: string) => {
@@ -61,19 +56,24 @@ export default function EditCreator() {
     return "";
   }, []);
 
-  useEffect(() => {
-    const isNameValid = name.length >= 2;
-    const isImageUrlValid = !validateUrl(imageUrl);
-    const isUrlValid = !validateUrl(url);
-    setIsFormValid(isNameValid && isImageUrlValid && isUrlValid);
-  }, [name, imageUrl, url, validateUrl]);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormMessage({ type: '', text: '' });
     setIsLoading(true);
 
-    if (!isFormValid) {
+    if (!name || !imageUrl || !url) {
+      setFormMessage({ type: 'error', text: 'Please fill in all required fields' });
+      setIsLoading(false);
+      return;
+    }
+
+    const imageUrlError = validateUrl(imageUrl);
+    const websiteUrlError = validateUrl(url);
+    
+    setImageUrlError(imageUrlError);
+    setUrlError(websiteUrlError);
+
+    if (nameError || imageUrlError || websiteUrlError) {
       setFormMessage({ type: 'error', text: 'Please correct the errors in the form' });
       setIsLoading(false);
       return;
@@ -101,17 +101,15 @@ export default function EditCreator() {
     <DefaultLayout>
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
         <h1 className={title()}>Edit Creator</h1>
-        {formMessage.text && (
-          <Card className={`max-w-lg w-full ${formMessage.type === 'error' ? 'bg-danger-50' : 'bg-success-50'}`}>
-            <CardBody>
-              <p className={`text-center ${formMessage.type === 'error' ? 'text-danger' : 'text-success'}`}>
-                {formMessage.text}
-              </p>
-            </CardBody>
-          </Card>
-        )}
         <Card className="max-w-lg w-full">
           <CardBody>
+            {formMessage.text && (
+              <Card className={`max-w-lg w-full ${formMessage.type === 'error' ? 'bg-danger-50' : 'bg-success-50'}`}>
+                <CardBody>
+                  <p className="text-center">{formMessage.text}</p>
+                </CardBody>
+              </Card>
+            )}
             <form onSubmit={handleSubmit} className="space-y-4">
               <Input
                 label="Name"
@@ -136,11 +134,6 @@ export default function EditCreator() {
                 isInvalid={!!imageUrlError}
               />
               <Input
-                label="Description"
-                value={description}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDescription(e.target.value)}
-              />
-              <Input
                 label="Website or Social Media URL"
                 value={url}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -151,7 +144,12 @@ export default function EditCreator() {
                 errorMessage={urlError}
                 isInvalid={!!urlError}
               />
-              <Button type="submit" color="primary" isDisabled={!isFormValid} isLoading={isLoading}>
+              <Textarea
+                label="Description"
+                value={description}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDescription(e.target.value)}
+              />
+              <Button type="submit" color="primary" isLoading={isLoading}>
                 Update Creator
               </Button>
             </form>
@@ -161,3 +159,4 @@ export default function EditCreator() {
     </DefaultLayout>
   );
 }
+
